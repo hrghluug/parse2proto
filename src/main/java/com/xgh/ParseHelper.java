@@ -1,10 +1,7 @@
 package com.xgh;
 
 import com.intellij.lang.jvm.JvmModifier;
-import com.intellij.psi.PsiAnnotation;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiField;
-import com.intellij.psi.PsiJavaCodeReferenceElement;
+import com.intellij.psi.*;
 import com.intellij.psi.impl.source.PsiClassReferenceType;
 import com.intellij.psi.javadoc.PsiDocComment;
 
@@ -80,6 +77,7 @@ public class ParseHelper {
                 continue;
             }
             if (asBasic || BASIC_TYPE_MAPPING.containsKey(field.getType().getCanonicalText())) {
+
                 list.add(String.format(copeFieldAsBasicType(field, fieldIndent), index++));
             } else {
                 list.addAll(copeObjectTypeField(field, fieldIndent));
@@ -98,7 +96,7 @@ public class ParseHelper {
             type = BASIC_TYPE_MAPPING.get(typeName);
         } else if (Object.class.getName().equals(typeName)) {
             type = OBJECT_WRAPPER;
-        } else if (field.getType() instanceof PsiClassReferenceType){
+        } else if (field.getType() instanceof PsiClassReferenceType) {
             PsiJavaCodeReferenceElement reference = ((PsiClassReferenceType) field.getType()).getReference();
             String className = reference.getQualifiedName();
             type = field.getType().getPresentableText();
@@ -123,6 +121,13 @@ public class ParseHelper {
 
 
         return null;
+    }
+
+    private void addDoc(PsiJavaDocumentedElement element, List<String> list) {
+        PsiDocComment comment = element.getDocComment();
+        if (comment != null) {
+            list.add(comment.getText());
+        }
     }
 
 
