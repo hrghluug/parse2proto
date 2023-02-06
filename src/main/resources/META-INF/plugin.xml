@@ -17,8 +17,11 @@
     </extensions>
 
     <actions>
-        <action class="com.xgh.TestAction" id="test" text="test">
-            <add-to-group group-id="HelpMenu" anchor="first"></add-to-group>
+        <action class="com.xgh.ParseAllAction" id="ParseAll" text="ParseAll" description="只转换所关联的文件">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"></add-to-group>
+        </action>
+        <action class="com.xgh.ParseOneAction" id="ParseOne" text="ParseOne" description="只转换当前文件">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"></add-to-group>
         </action>
     </actions>
 </idea-plugin>

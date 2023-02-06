@@ -7,9 +7,9 @@ import org.jetbrains.annotations.NotNull;
 /**
  * @author xgh 2023/2/6
  */
-public class TestAction extends AnAction {
+public class ParseAllAction extends AnAction {
     @Override
-    public void actionPerformed(@NotNull AnActionEvent e) {
-       System.out.println(e);
+    public void actionPerformed(@NotNull AnActionEvent event) {
+
     }
 }
