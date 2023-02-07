@@ -4,7 +4,15 @@
     <vendor email="2668634668@qq.com" url="http://www.baidu.com">baidu</vendor>
 
     <description><![CDATA[
-        将当前类转化成proto格式
+    <ul>
+        <li>
+            将当前java类转化成proto格式
+        </li>
+        <li>
+             Converts the current java class to proto message
+        </li>
+    </ul>
+
     ]]></description>
 
     <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html

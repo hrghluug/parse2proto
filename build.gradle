@@ -3,8 +3,8 @@ plugins {
     id 'java'
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
+group 'com.xgh'
+version '1.0.2'
 
 repositories {
     mavenCentral()
@@ -19,6 +19,10 @@ dependencies {
 intellij {
     version = '2021.2.2'
     plugins = ['java']
+}
+publishPlugin{
+    channels = ['Stable']
+    token = System.getenv("PLUGIN_MARCKET_TOKEN")
 }
 patchPluginXml {
     changeNotes = """

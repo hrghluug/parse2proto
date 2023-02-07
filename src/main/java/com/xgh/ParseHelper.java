@@ -111,7 +111,7 @@ public class ParseHelper {
     private static List<PsiField> findNeedConvertField(PsiClass psiClass) {
         List<PsiField> fieldList = new ArrayList<>();
         PsiClass curClass = psiClass;
-        while (!"Object".equals(curClass.getName())|| !"java.lang".equals(((PsiJavaFile) curClass.getContext()).getPackageName())) {
+        while (!"Object".equals(curClass.getName()) || !"java.lang".equals(((PsiJavaFile) curClass.getContext()).getPackageName())) {
             Collections.addAll(fieldList, curClass.getFields());
             curClass = curClass.getSuperClass();
         }
