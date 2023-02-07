@@ -60,7 +60,7 @@ public class ParseHelper {
                         list.addAll(parseEnum(clazz, ""));
                     } else {
                         if (clazz.isInterface()) {
-                            list.add("// interface 不能转换");
+                            list.add("// "+clazz.getName()+"是 interface 不能转换");
                         } else {
                             list.addAll(parseClass(clazz, ""));
                         }
