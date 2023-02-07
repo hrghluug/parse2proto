@@ -3,6 +3,7 @@ package com.xgh;
 import com.intellij.lang.jvm.JvmModifier;
 import com.intellij.psi.*;
 import com.intellij.psi.impl.source.PsiClassReferenceType;
+import com.intellij.psi.impl.source.PsiJavaFileImpl;
 import com.intellij.psi.javadoc.PsiDocComment;
 
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 /**
  * @author xgh 2023/2/6
  */
+@SuppressWarnings("all")
 public class ParseHelper {
     private static final Map<String, String> REFERENCE_MAP = new HashMap<>();
     private static final Map<String, String> PRIMITIVE_MAP = new HashMap<>();
@@ -60,7 +62,7 @@ public class ParseHelper {
                         list.addAll(parseEnum(clazz, ""));
                     } else {
                         if (clazz.isInterface()) {
-                            list.add("// "+clazz.getName()+"是 interface 不能转换");
+                            list.add("// " + clazz.getName() + "是 interface 跳过");
                         } else {
                             list.addAll(parseClass(clazz, ""));
                         }
@@ -88,14 +90,10 @@ public class ParseHelper {
         Set<String> genericTypes = Arrays.stream(psiClass.getTypeParameters()).map(PsiTypeParameter::getName).collect(Collectors.toSet());
         addDoc(psiClass, indent, list);
         list.add(indent + CLASS_PREFIX + " " + psiClass.getName() + " {");
-        PsiField[] fields = psiClass.getFields();
+        List<PsiField> fields = findNeedConvertField(psiClass);
         String fieldIndent = indent + "\t";
-        int index = 1;
-        for (int i = 0; i < fields.length; i++) {
-            PsiField field = fields[i];
-            if (field.hasModifier(JvmModifier.STATIC) || field.hasModifier(JvmModifier.FINAL)) {
-                continue;
-            }
+        for (int i = 0; i < fields.size(); i++) {
+            PsiField field = fields.get(i);
             String type = getProtoType(field.getType(), genericTypes);
             if (type.contains("google.protobuf.StringValue")) {
                 if (!hasNullableAnnotation(field)) {
@@ -103,10 +101,22 @@ public class ParseHelper {
                 }
             }
             addDoc(field, indent, list);
-            list.add(fieldIndent + type + " " + field.getName() + " = " + index++ + ";");
+            list.add(fieldIndent + type + " " + field.getName() + " = " + (i + 1) + ";");
         }
         list.add("}");
         return list;
+    }
+
+
+    private static List<PsiField> findNeedConvertField(PsiClass psiClass) {
+        List<PsiField> fieldList = new ArrayList<>();
+        PsiClass curClass = psiClass;
+        while (!"Object".equals(curClass.getName())|| !"java.lang".equals(((PsiJavaFile) curClass.getContext()).getPackageName())) {
+            Collections.addAll(fieldList, curClass.getFields());
+            curClass = curClass.getSuperClass();
+        }
+
+        return fieldList.stream().filter(field -> !field.hasModifier(JvmModifier.FINAL) && !field.hasModifier(JvmModifier.STATIC)).collect(Collectors.toList());
     }
 
     private static String getProtoType(PsiType type, Set<String> genericType) {
@@ -175,7 +185,7 @@ public class ParseHelper {
         PsiDocComment comment = element.getDocComment();
         if (comment != null) {
             String commentText = comment.getText();
-            String s = Arrays.stream(commentText.split("\n")).map(String::trim).map(str -> indent + str).collect(Collectors.joining("\n "+indent));
+            String s = Arrays.stream(commentText.split("\n")).map(String::trim).map(str -> indent + str).collect(Collectors.joining("\n " + indent));
             list.add(s);
         }
     }

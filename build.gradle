@@ -18,12 +18,13 @@ dependencies {
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
     version = '2021.2.2'
-    plugins=['java']
+    plugins = ['java']
 }
 patchPluginXml {
     changeNotes = """
       包装类自动转化为google 提供的proto包装类
       在String 类型上存在@Nullable注解 转化为 proto包装类
+      支持继承
       """
 }
 test {

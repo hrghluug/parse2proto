@@ -33,7 +33,7 @@ public class ParseOneAction extends AnAction {
         try {
             List<String> parse = ParseHelper.parse(psiClass);
             copyToClipboard(parse);
-            notification = NG.createNotification("生成成功已复制到剪切版", MessageType.INFO);
+            notification = NG.createNotification("生成成功,已复制到剪切版", MessageType.INFO);
         } catch (Exception e) {
             notification = NG.createNotification("生成异常:" + e.getMessage(), MessageType.ERROR);
         } finally {
