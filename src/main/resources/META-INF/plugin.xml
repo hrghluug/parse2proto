@@ -1,11 +1,10 @@
 <idea-plugin>
-    <id>org.example.parse2proto</id>
-    <name>Plugin display name here</name>
-    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+    <id>com.xgh</id>
+    <name>parse2pr0to</name>
+    <vendor email="2668634668@qq.com" url="http://www.baidu.com">baidu</vendor>
 
     <description><![CDATA[
-    Enter short description for your plugin here.<br>
-    <em>most HTML tags may be used</em>
+        将当前类转化成proto格式
     ]]></description>
 
     <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
@@ -20,9 +19,6 @@
     </extensions>
 
     <actions>
-        <action class="com.xgh.ParseAllAction" id="ParseAll" text="ParseAll" description="只转换所关联的文件">
-            <add-to-group group-id="EditorPopupMenu" anchor="first"></add-to-group>
-        </action>
         <action class="com.xgh.ParseOneAction" id="ParseOne" text="ParseOne" description="只转换当前文件">
             <add-to-group group-id="EditorPopupMenu" anchor="first"></add-to-group>
         </action>
