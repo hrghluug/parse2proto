@@ -1,16 +1,17 @@
 <idea-plugin>
     <id>com.xgh</id>
-    <name>parse 2 proto</name>
+    <name>parse2proto</name>
     <vendor email="2668634668@qq.com" url="http://www.baidu.com">baidu</vendor>
 
     <description><![CDATA[
     <ul>
         <li>
-            将当前java类转化成proto格式
-        </li>
-        <li>
              Converts the current java class to proto message
         </li>
+        <li>
+            将当前java类转化成proto格式
+        </li>
+        <a href="https://github.com/hrghluug/parse2proto">git link</a>
     </ul>
 
     ]]></description>
