@@ -1,9 +1,7 @@
 package com.xgh;
 
-import com.intellij.notification.Notification;
-import com.intellij.notification.NotificationDisplayType;
-import com.intellij.notification.NotificationGroup;
-import com.intellij.notification.Notifications;
+import com.intellij.notification.*;
+import com.intellij.notification.impl.NotificationGroupEP;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
@@ -23,7 +21,7 @@ import java.util.stream.Collectors;
  */
 public class ParseOneAction extends AnAction {
 
-    public static final NotificationGroup NG = new NotificationGroup(ParseOneAction.class.getSimpleName(), NotificationDisplayType.BALLOON);
+    public static final NotificationGroup NG = NotificationGroupManager.getInstance().getNotificationGroup("parse2proto");
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent event) {
@@ -33,11 +31,9 @@ public class ParseOneAction extends AnAction {
         try {
             List<String> parse = ParseHelper.parse(psiClass);
             copyToClipboard(parse);
-            notification = NG.createNotification("生成成功,已复制到剪切版", MessageType.INFO);
+            NG.createNotification("生成成功,已复制到剪切版", MessageType.INFO).notify(event.getProject());
         } catch (Exception e) {
-            notification = NG.createNotification("生成异常:" + e.getMessage(), MessageType.ERROR);
-        } finally {
-            Notifications.Bus.notify(notification);
+            NG.createNotification("生成异常:" + e.getMessage(), MessageType.ERROR).notify(event.getProject());
         }
     }
 

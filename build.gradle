@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.xgh'
-version '1.0.3'
+version '1.2.0'
 
 repositories {
     maven {
@@ -32,13 +32,15 @@ intellij {
 }
 publishPlugin {
     channels = ['Stable']
-    token = "perm:aHJnaGx1dWc=.OTItMTAxNDM=.RqJNUV2dZzPq1voNCPafe6FwTzYoRV"
+    token = System.getenv("PUBLISH_TOKEN")
 }
 patchPluginXml {
     changeNotes = """
       包装类自动转化为google 提供的proto包装类
       在String 类型上存在@Nullable注解 转化为 proto包装类
       支持继承
+      2024-05-24
+      支持 2024.1 版本
       """
 }
 test {

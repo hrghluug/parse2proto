@@ -23,7 +23,9 @@
 
 
     <extensions defaultExtensionNs="com.intellij">
-        <!-- Add your extensions here -->
+        <notificationGroup id="parse2proto"
+                           displayType="BALLOON"
+                          />
     </extensions>
 
     <actions>
