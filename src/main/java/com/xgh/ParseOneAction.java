@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  */
 public class ParseOneAction extends AnAction {
 
-    public static final NotificationGroup NG = NotificationGroupManager.getInstance().getNotificationGroup("parse2proto");
+    public static final NotificationGroup NG = NotificationGroupManager.getInstance().getNotificationGroup("Parse2proto");
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent event) {
